@@ -2,21 +2,20 @@
 
 Inspired from the idea of Financial Freedom and value of time.
 FinArm is a webApplication that supports users to tackle their debts
-by providing IAS (Insights,analysis and simulations) on the current Debt situation.
+by providing IAS (Insights,analysis and simulations) on the users Debt situation.
 
-In Addition it will also suggest user on which card to be used based on factors.
 
-Insights:
-    * What is the user current Debt Ratio.
-    * What is Debt ratio for a current Loan/Card.
+**Insights:**
+* What is the user current Debt Ratio.
+* What is Debt ratio for a current Loan/Card.
 
-Analysis:
-    * What Benifits do the user have on a particular card.
-    * What is the best card that can be used based on a situation.
+**Analysis:**
+* What Benifits do the user have on a particular card.
+* What is the best card that can be used based on a situation.
 
-Simulations:
-    * How much time does it takes to Pay off a loan or card.
-    * How much interest will i pay on a particular card with varying factors.
+**Simulations:**
+* How much time does it takes to Pay off a loan or card.
+* How much interest will i pay on a particular card with varying factors.
 
 
 
