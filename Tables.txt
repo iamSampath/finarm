@@ -1,0 +1,21 @@
+CREATE TABLE users (
+id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+firstname TEXT NOT NULL,
+lastname TEXT NOT NULL,
+username TEXT NOT NULL,
+password TEXT NOT NULL,
+email TEXT NOT NULL,
+phone TEXT NOT NULL
+);
+
+
+Connection String
+
+  db=sqlite3.connect("sqlite:///finarm.db")
+    username="sampathkm2016"
+    cur = db.cursor()
+    query = "SELECT username FROM users WHERE username={usrnm}".format(usernm=username)
+    query1 = "INSERT INTO users VALUES({fn},{ln},{usrnm},{pwd},{eml},{phn})".format(fn=firstname,ln=lastname,usrnm=username,pwd=hashval,eml=email,phn=phone)
+    res = cur.execute(query)   
+    res = res.fetchall()[0][0]
+    db.commit()
