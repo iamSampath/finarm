@@ -6,5 +6,13 @@
 {% block main %}
 
 <h1 align="center">Welcome Home !!</h1>  
+<br>
+<br>
+<br>
+<br>
+<div class="buttons" align="center">
+    <button type="button" class="btn btn-primary" align="center"><a href="{{ url_for('addfininfo') }}">Add financial info</a></button>
+    <button type="button" class="btn btn-primary" align="center"><a href="{{ url_for('analysis') }}">Analyze you Financials</a></button>
+</div>
 
 {% endblock %}

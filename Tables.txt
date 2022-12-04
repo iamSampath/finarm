@@ -5,7 +5,20 @@ lastname TEXT NOT NULL,
 username TEXT NOT NULL,
 password TEXT NOT NULL,
 email TEXT NOT NULL,
-phone TEXT NOT NULL
+phone TEXT NOT NULL,
+FOREIGN KEY(username)
+ REFERENCES fininfo(username)
+);
+
+CREATE TABLE fininfo(
+finid INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+ccname TEXT NOT NULL,
+ccused TEXT NOT NULL,
+cclimit TEXT NOT NULL,
+cashapr TEXT NOT NULL,
+balapr TEXT NOT NULL,
+purapr TEXT NOT NULL,
+username TEXT NOT NULL
 );
 
 

@@ -100,7 +100,50 @@ def register():
 @app.route("/aboutus")
 def aboutus():
     return render_template("aboutus.html")
-        
+
+@app.route("/addfininfo", methods=["GET","POST"])
+def addfininfo():
+    if request.method=="POST":
+        cardname = request.form.get("cardname")
+        amountused = request.form.get("amountused")
+        limit = request.form.get("limit")
+        cashapr = request.form.get("cashapr")
+        baltranapr = request.form.get("baltranapr")
+        purchaseapr = request.form.get("purchaseapr")
+        username = session["username"]
+
+        if not cardname or cardname == None:
+            print("Error in cardname")
+            return render_template("errorpage.html")
+        elif not amountused or amountused == None:
+            print("Error in amount used")
+            return render_template("errorpage.html")
+        elif not limit or limit == None:
+            print("Error in Limit")
+            return render_template("errorpage.html")
+        elif not cashapr or cashapr == None:
+            print("Error in Cashapr")
+            return render_template("errorpage.html")
+        elif not baltranapr or baltranapr == None:
+            print("Error in Baltranapr")
+            return render_template("errorpage.html")
+        elif not purchaseapr or purchaseapr == None:
+            print("Error in purchaseapr")
+            return render_template("errorpage.html")
+        else:
+            db=sqlite3.connect(fdrct + "///finarm.db")
+            cur = db.cursor()
+            query1 = "INSERT INTO fininfo(ccname,ccused,cclimit,cashapr,balapr,purapr,username) VALUES('{ccn}','{ccu}','{ccl}','{capr}','{blapr}','{purapr}','{usrnm}')".format(ccn=cardname,ccu=amountused,ccl=limit,capr=cashapr,blapr=baltranapr,purapr=purchaseapr,usrnm=username)
+            cur.execute(query1)
+            db.commit()
+    else:    
+        return render_template("finadd.html")
+
+    return render_template("finadd.html")        
+
+@app.route("/analysis")
+def analysis():
+    return render_template("analysis.html")
 
 @app.route("/logout")
 def logout():

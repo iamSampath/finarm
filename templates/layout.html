@@ -19,8 +19,8 @@
             </div>
             {% if session["username"] %}
               <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-th-list"></span>Add Fin Info </a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-signal"></span> Analysis </a></li>
+                <li><a href="{{ url_for('addfininfo') }}"><span class="glyphicon glyphicon-th-list"></span>Add Fin Info</a></li>
+                <li><a href="{{ url_for('analysis') }}"><span class="glyphicon glyphicon-signal"></span> Analysis </a></li>
                 <li><a href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
              </ul>   
             {% else %}
@@ -29,7 +29,6 @@
                 <li><a href="{{ url_for('login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                 <li><a href="{{ url_for('aboutus') }}"><span class="glyphicon glyphicon-info-sign"></span> About us</a></li>
               </ul>
-              
             {% endif %}
           </div>      
         </nav>
