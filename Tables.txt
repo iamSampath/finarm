@@ -18,8 +18,11 @@ cclimit TEXT NOT NULL,
 cashapr TEXT NOT NULL,
 balapr TEXT NOT NULL,
 purapr TEXT NOT NULL,
-username TEXT NOT NULL
+username TEXT NOT NULL,
+benefits TEXT NOT NULL
 );
+
+
 
 
 Connection String

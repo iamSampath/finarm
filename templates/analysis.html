@@ -5,6 +5,80 @@
 
 {% block main %}
 
-<h1 align="center">Analysis</h1>
+<h1 align="center">Your IAS</h1>
+<p>Hey <b>{{ session.username }} !!</b></p>
+<br>
+<br>
+<p> Based on financial information provided by you here is intel that could be helpful for working on your finaincial planning.</p>
+<h3 align="center"><b>Here are the details you cards:</b></h3>
+<table class="table">
+    <thead>
+        <tr>
+          <th scope="col">Card Name</th>
+          <th scope="col">Balance</th>
+          <th scope="col">Credit Limit</th>
+          <th scope="col">Cash Adv APR</th>
+          <th scope="col">Balance Transfer APR</th>
+          <th scope="col">Purchase APR</th>
+          <th scope="col">Debt-to-credit Ratio</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for finres in vals %}
+         <tr>
+            <td align="center">{{finres[1]}}</td>    
+            <td align="center">{{finres[2]}}</td> 
+            <td align="center">{{finres[3]}}</td> 
+            <td align="center">{{finres[4]}}</td> 
+            <td align="center">{{finres[5]}}</td> 
+            <td align="center">{{finres[6]}}</td> 
+            <td align="center">{{ "%0.2f"|format((finres[2]|float/finres[3]|float)*100) }}%</td> 
+         </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<h3 align="center">Insights:</h3>
+<table class="table">
+    <thead>
+          <tr>
+             <th scope="col">Your debt-to-credit ratio:</th>
+          </tr>
+    </thead>
+    <tbody>
+          <tr>
+             <td>{{ "%0.2f"|format(val2) }}%</td>
+          </tr>
+    </tbody>
+</table>
+
+<h3 align="center">Analysis:</h3>
+<table class="table">
+    <thead>
+          <tr>
+             <th scope="col">CardName</th>
+             <th scope="col">Benefits</th>
+          </tr>
+    </thead>
+    <tbody>
+          
+            {% for finres in vals %}
+              <tr>
+                <td align="left">{{ finres[1] }}</td>
+                <td align="left"><a style="color:black" target="_blank" href="{{ finres[8] }}">Benefits Page</a></td>
+              </tr>
+             {% endfor %}
+          
+    </tbody>
+</table>
+
+<h2 align="center">Simulations:</h2>
+
+
+
+
+
 
 {% endblock %}

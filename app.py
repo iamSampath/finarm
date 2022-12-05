@@ -1,5 +1,6 @@
 import os
 import sqlite3
+import json
 
 from flask import Flask, flash, redirect, render_template, request, session
 from flask_session.__init__ import Session
@@ -24,12 +25,13 @@ Session(app)
 def index():
     return render_template("index.html")
 
+@app.route("/home")
+def home():
+    return render_template("homepage.html")
 
 @app.route("/login", methods=["GET","POST"])
 def login():
-
     session.clear()
-
     if request.method == "POST":
         
         username=request.form.get("username")
@@ -110,30 +112,27 @@ def addfininfo():
         cashapr = request.form.get("cashapr")
         baltranapr = request.form.get("baltranapr")
         purchaseapr = request.form.get("purchaseapr")
+        benefits = request.form.get("benefits")
         username = session["username"]
 
         if not cardname or cardname == None:
-            print("Error in cardname")
             return render_template("errorpage.html")
         elif not amountused or amountused == None:
-            print("Error in amount used")
             return render_template("errorpage.html")
         elif not limit or limit == None:
-            print("Error in Limit")
             return render_template("errorpage.html")
         elif not cashapr or cashapr == None:
-            print("Error in Cashapr")
             return render_template("errorpage.html")
         elif not baltranapr or baltranapr == None:
-            print("Error in Baltranapr")
             return render_template("errorpage.html")
         elif not purchaseapr or purchaseapr == None:
-            print("Error in purchaseapr")
+            return render_template("errorpage.html")
+        elif not benefits or benefits == None:
             return render_template("errorpage.html")
         else:
             db=sqlite3.connect(fdrct + "///finarm.db")
             cur = db.cursor()
-            query1 = "INSERT INTO fininfo(ccname,ccused,cclimit,cashapr,balapr,purapr,username) VALUES('{ccn}','{ccu}','{ccl}','{capr}','{blapr}','{purapr}','{usrnm}')".format(ccn=cardname,ccu=amountused,ccl=limit,capr=cashapr,blapr=baltranapr,purapr=purchaseapr,usrnm=username)
+            query1 = "INSERT INTO fininfo(ccname,ccused,cclimit,cashapr,balapr,purapr,username,benefits) VALUES('{ccn}','{ccu}','{ccl}','{capr}','{blapr}','{purapr}','{usrnm}','{bnfts}')".format(ccn=cardname,ccu=amountused,ccl=limit,capr=cashapr,blapr=baltranapr,purapr=purchaseapr,usrnm=username,bnfts=benefits)
             cur.execute(query1)
             db.commit()
     else:    
@@ -143,7 +142,20 @@ def addfininfo():
 
 @app.route("/analysis")
 def analysis():
-    return render_template("analysis.html")
+        totusdamt=0
+        totavlamt=0
+        db=sqlite3.connect(fdrct + "///finarm.db")
+        cur = db.cursor()
+        query = "SELECT * FROM fininfo WHERE username = '{usrnm}'".format(usrnm=session["username"])
+        res = cur.execute(query)   
+        finresults = res.fetchall()
+
+        for fin in finresults:
+            totusdamt += int(fin[2])
+            totavlamt += int(fin[3])
+
+        debtrtn = totusdamt/totavlamt
+        return render_template("analysis.html",vals=finresults,val2=debtrtn)
 
 @app.route("/logout")
 def logout():
