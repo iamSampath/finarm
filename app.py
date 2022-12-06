@@ -1,3 +1,4 @@
+import math
 import os
 import sqlite3
 import json
@@ -149,13 +150,28 @@ def analysis():
         query = "SELECT * FROM fininfo WHERE username = '{usrnm}'".format(usrnm=session["username"])
         res = cur.execute(query)   
         finresults = res.fetchall()
+        simulationdata={}
+        simlist=[]
+        
+
 
         for fin in finresults:
+            simulationdata['cardname'] = fin[1]
+            simulationdata['balance'] = fin[2]
+            simulationdata['minbal'] = 200
+            aprpur = float(fin[6])
+            daily_rate = aprpur/100/365 
+            r1 = -1/30
+            r2 = math.log(1+ (int(fin[2])/200) * (1- math.pow((1 + (daily_rate)), 30)))
+            r3 = math.log(1+daily_rate)
+            simulationdata['paymenttime'] = math.ceil(r1 * (r2/r3))
             totusdamt += int(fin[2])
             totavlamt += int(fin[3])
-
-        debtrtn = totusdamt/totavlamt
-        return render_template("analysis.html",vals=finresults,val2=debtrtn)
+            debtrtn = totusdamt/totavlamt
+            fininfores = json.dumps(simulationdata)
+            simlist.append(json.loads(fininfores))
+            print(simlist)
+        return render_template("analysis.html",vals=finresults,val2=debtrtn,simdata=simlist)
 
 @app.route("/logout")
 def logout():
