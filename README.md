@@ -5,7 +5,7 @@ FinArm is a webApplication that supports users to tackle their debts
 by providing IAS (Insights,analysis and simulations) on the users Debt situation.
 
 
-**Insights:**
+####Insights:
 * What is the user current Debt Ratio.
 * What is Debt ratio for a current Loan/Card.
 
